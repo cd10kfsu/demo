@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Project on aosc614</title>
+    <link>http://cd10kfsu.github.io/docs/project/</link>
+    <description>Recent content in Project on aosc614</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language><atom:link href="http://cd10kfsu.github.io/docs/project/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Lorenz63</title>
+      <link>http://cd10kfsu.github.io/docs/project/lorenz63/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://cd10kfsu.github.io/docs/project/lorenz63/</guid>
+      <description>Data Assimilation Experiments with the Lorenz-63 model #   Download the pdf
+Introduction #  In Chapter 5, we explored different data assimilation (DA) methods theoretically. This project is intended to give you hands-on experience about their code implementation and get you familiar with different DA methods’ behaviors. We use the famous 3-variable Lorenz-63 model as our toy numerical weather model for its simplicity and its similar chaotic behaviors as the real NWP models.</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>http://cd10kfsu.github.io/docs/project/lorenz96/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://cd10kfsu.github.io/docs/project/lorenz96/</guid>
+      <description>Lorenz-96</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>http://cd10kfsu.github.io/docs/project/SPEEDY/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://cd10kfsu.github.io/docs/project/SPEEDY/</guid>
+      <description>SPEEDY #  </description>
+    </item>
+    
+  </channel>
+</rss>

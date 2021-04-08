@@ -1,0 +1,981 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta name="generator" content="Hugo 0.82.0" />
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Data Assimilation Experiments with the Lorenz-63 model #   Download the pdf
+Introduction #  In Chapter 5, we explored different data assimilation (DA) methods theoretically. This project is intended to give you hands-on experience about their code implementation and get you familiar with different DA methods’ behaviors. We use the famous 3-variable Lorenz-63 model as our toy numerical weather model for its simplicity and its similar chaotic behaviors as the real NWP models.">
+<meta name="theme-color" content="#FFFFFF"><meta property="og:title" content="Lorenz63" />
+<meta property="og:description" content="Data Assimilation Experiments with the Lorenz-63 model #   Download the pdf
+Introduction #  In Chapter 5, we explored different data assimilation (DA) methods theoretically. This project is intended to give you hands-on experience about their code implementation and get you familiar with different DA methods’ behaviors. We use the famous 3-variable Lorenz-63 model as our toy numerical weather model for its simplicity and its similar chaotic behaviors as the real NWP models." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://cd10kfsu.github.io/docs/project/lorenz63/" /><meta property="article:section" content="docs" />
+
+
+
+<title>Lorenz63 | aosc614</title>
+<link rel="manifest" href="/manifest.json">
+<link rel="icon" href="/favicon.png" type="image/x-icon">
+<link rel="stylesheet" href="/book.min.2bc2364a4a4b31f0ec1debecf0a8f90a840821f143dfe1ac6a0f7cbcbdcf64ac.css" integrity="sha256-K8I2SkpLMfDsHevs8Kj5CoQIIfFD3&#43;Gsag98vL3PZKw=">
+<script defer src="/en.search.min.a893fba9615f7b4d99f6fbda9660c97cc64bc70eeacd51e43190aa8bc09d6443.js" integrity="sha256-qJP7qWFfe02Z9vvalmDJfMZLxw7qzVHkMZCqi8CdZEM="></script>
+
+<script defer src="/sw.min.6f6f90fcb8eb1c49ec389838e6b801d0de19430b8e516902f8d75c3c8bd98739.js" integrity="sha256-b2&#43;Q/LjrHEnsOJg45rgB0N4ZQwuOUWkC&#43;NdcPIvZhzk="></script>
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+
+  
+</head>
+
+<body dir="ltr">
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      <div class="book-menu-content">
+        
+  <nav>
+<h2 class="book-brand">
+  <a href="/"><img src="/bookcover.png" alt="Logo" /><span>aosc614</span>
+  </a>
+</h2>
+
+
+<div class="book-search">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+  <ul>
+<li>
+  <a href="/docs/welcome/"><strong>Welcome</strong></a></li>
+<li>
+  <a href="/docs/appendix/"><strong>Appendix</strong></a>
+<ul>
+<li>
+  <a href="/docs/appendix/appendixA/">Appendix A</a></li>
+</ul>
+</li>
+<li>
+  <a href="/docs/homework/"><strong>Homework</strong></a>
+<ul>
+<li>
+  <a href="/docs/homework/homework5/">Homework 5</a></li>
+</ul>
+</li>
+<li>
+  <a href="/docs/supplemental/"><strong>Supplemental</strong></a>
+<ul>
+<li>
+  <a href="/docs/supplemental/nmi/">Normal mode initialization</a></li>
+<li>
+  <a href="/docs/supplemental/varQC/">variational QC</a></li>
+<li>
+  <a href="/docs/supplemental/dfi/">Digital Filter</a></li>
+</ul>
+</li>
+<li>
+  <a href="/docs/project/"><strong>project</strong></a>
+<ul>
+<li>
+  <a href="/docs/project/lorenz63/"class=active>Lorenz-63</a></li>
+<li>
+  <a href="/docs/project/lorenz96/">Lorenz-96</a></li>
+<li>
+  <a href="/docs/project/SPEEDY/">SPEEDY</a></li>
+</ul>
+</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var a=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(b){localStorage.setItem("menu.scrollTop",a.scrollTop)}),a.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+
+
+ 
+      </div>
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <strong>Lorenz63</strong>
+
+  <label for="toc-control">
+    
+  </label>
+</div>
+
+
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown"><h1 id="data-assimilation-experiments-with-the-lorenz-63-model">
+  Data Assimilation Experiments with the Lorenz-63 model
+  <a class="anchor" href="#data-assimilation-experiments-with-the-lorenz-63-model">#</a>
+</h1>
+<p>
+  <a href="/pdf/lorenz63.pdf">Download the pdf</a></p>
+<h1 id="introduction">
+  Introduction
+  <a class="anchor" href="#introduction">#</a>
+</h1>
+<p>In Chapter 5, we explored different data assimilation (DA) methods
+theoretically. This project is intended to give you hands-on experience
+about their code implementation and get you familiar with different DA
+methods’ behaviors. We use the famous 3-variable Lorenz-63 model as our
+toy numerical weather model for its simplicity and its similar chaotic
+behaviors as the real NWP models.</p>
+<h2 id="lorenz-63-model">
+  Lorenz-63 model
+  <a class="anchor" href="#lorenz-63-model">#</a>
+</h2>
+<p>Lorenz (1963) developed a simplified 3-variable model for the
+atmospheric convection. The equations for the Lorenz-63 model are
+
+<link rel="stylesheet" href="/katex/katex.min.css" />
+<script defer src="/katex/katex.min.js"></script>
+<script defer src="/katex/auto-render.min.js" onload="renderMathInElement(document.body);"></script><span>
+  \[\begin{cases}
+      \dot{x} = \sigma (y-x)     &amp; \\
+      \dot{y} = x(\rho-z) - y   &amp; \\
+      \dot{z} = xy - \beta z    &amp; \\
+    \end{cases}\]
+</span>
+
+where  <span>
+  \(\sigma = 10, \beta = 8/3, \rho = 28 \)
+</span>
+. We use the Runge-Kutta
+4-stage method to discretize the forward Lorenz-63 model. After getting
+the forward model, we developed its tangent linear and adjoint model
+following the instructions in Chapter 5. Figure 1 shows the trajectory
+generated by the Lorenz-63 model.</p>
+<!--- ![The trajectory of the Lorenz-63 model with parameters
+$\sigma=10, \beta=8/3, \rho=28$. ](/pdf/l63.png =100x20))  -->
+<p><img class="special-img-class" style="width:50%" src="/pdf/l63.png" /></p>
+<h2 id="da-system-l63-das-for-the-lorenz-63-model">
+  DA system L63-DAS for the Lorenz-63 model
+  <a class="anchor" href="#da-system-l63-das-for-the-lorenz-63-model">#</a>
+</h2>
+<h3 id="da-methods-included-in-the-l63-das">
+  DA methods included in the L63-DAS
+  <a class="anchor" href="#da-methods-included-in-the-l63-das">#</a>
+</h3>
+<p>L63-DAS is a data assimilation package for the Lorenz-63 model. It
+includes the following DA methods:</p>
+<ul>
+<li>
+<p>3D-Var</p>
+</li>
+<li>
+<p>4D-Var with multi-outerloops</p>
+</li>
+<li>
+<p>Perturbed Observation EnKF</p>
+</li>
+<li>
+<p>(Local) Ensemble Transform Kalman Filter (LETKF)</p>
+</li>
+</ul>
+<p>All the mentioned methods are already available in the package, and you
+can directly compare their performance through observing system
+simulation experiments (OSSE).</p>
+<h3 id="general-procedure-for-osse">
+  General procedure for OSSE
+  <a class="anchor" href="#general-procedure-for-osse">#</a>
+</h3>
+<p>Here we briefly introduce the general procedure for OSSE. One advantage
+of the OSSE is that we have truth (i.e., the true trajectory of the
+$x, y, z$ for our Lorenz-63 model), which are not available in our real
+daily applications. Access to the true trajectory (i.e.,
+$x^t, y^t, z^t$) enables us to directly compare the accuracy of the
+analysis (i.e., $x^a, y^a, z^a$) generated by different DA methods.</p>
+<p>In L63-DAS, an OSSE includes the following steps:</p>
+<ol>
+<li>
+<p>Generate the true trajectory $\mathbf{x}^t$ from the Lorenz-63 model
+$\mathcal{M}$.</p>
+</li>
+<li>
+<p>Create the observations $\mathbf{y}^o$ by adding Gaussian noise
+$\epsilon$ to the simulated quantity from the true trajectory:
+$\mathbf{y}^o = \mathcal{H}(\mathbf{x}^t)+\mathbf{\epsilon}$, where
+$\mathbf{\epsilon} \sim \mathcal{N}(0,r^2)$.</p>
+</li>
+<li>
+<p>After setting an initial condition $\mathbf{x}_0^b$, integrate the
+Lorenz-63 model from $\mathbf{x}_0^b$ to get the background
+$\mathbf{x}_1^b = \mathcal{M}(\mathbf{x}_0^b)$ until the first DA
+step. Assimilate available observations $\mathbf{y}_1^o$ at this
+time step and update the background to the analysis
+$\mathbf{x}_1^a$. This analysis will serve the initial condition to
+get the background for the next DA step:
+$\mathbf{x}_2^b = \mathcal{M}(\mathbf{x}_1^a)$.</p>
+</li>
+<li>
+<p>Repeat Step 3 for the remaining steps.</p>
+</li>
+<li>
+<p>Finally, you get the whole trajectory of background $\mathbf{x}^b$
+and analysis $\mathbf{x}^a$. You can compare their accuracy with the
+truth $\mathbf{x}^t$ to assess each DA method’s performance.</p>
+</li>
+</ol>
+<p>One metric to evaluate the performance of assimilation method is the
+root mean square error (RMSE). For each assimilation cycle, we have both
+truth (i.e., $x^t, y^t, z^t$) and analysis (i.e., $x^a, y^a, z^a$). The
+total RMSE of the analysis at this cycle is defined as</p>
+<p>$$RMSE = \sqrt{\frac{1}{3}[(x^t-x^a)^2+(y^t-y^a)^2+(z^t-z^a)^2]}$$</p>
+<h2 id="a-short-code-guide-to-l63-das">
+  A short code guide to L63-DAS
+  <a class="anchor" href="#a-short-code-guide-to-l63-das">#</a>
+</h2>
+<h3 id="install-the-l63-das-on-deepthought2">
+  Install the L63-DAS on <em>deepthought2</em>
+  <a class="anchor" href="#install-the-l63-das-on-deepthought2">#</a>
+</h3>
+<ol>
+<li>
+<p>Log into <em>deepthought2</em> through the command<br>
+<code>ssh -X -Y your_user_name@rhel8.deepthought2.umd.edu</code></p>
+</li>
+<li>
+<p>Load environment by running the following commands<br>
+<code>module load intel</code><br>
+<code>module load matlab</code> (if you want to use Matlab)</p>
+</li>
+<li>
+<p>Go to your experiment directory:<br>
+<code>cd /lustre/your_user_name</code></p>
+</li>
+<li>
+<p>Copy the L63-DAS package to your current directory:<br>
+<code>cp -r /lustre/aosc614-1vb7/L63-DAS .</code></p>
+</li>
+<li>
+<p>After entering directory <code>L63-DAS</code>, generate executables:<br>
+<code>bash -xe compile_all.bsh</code><br>
+After running this command, you will see <code>fwd.exe</code>, <code>3dvar.exe</code>,
+<code>inc4dvar.exe</code> and <code>enda.exe</code> in your current directory.</p>
+</li>
+</ol>
+<h3 id="general-code-structures">
+  General code structures
+  <a class="anchor" href="#general-code-structures">#</a>
+</h3>
+<p>The naming convention is:</p>
+<ul>
+<li>
+<p><code>test_*.f90</code>: main programs for generating executables <code>*.exe</code>.</p>
+</li>
+<li>
+<p><code>mod_*.f90</code>: modules contain different DA methods and support
+libraries.</p>
+</li>
+<li>
+<p><code>compile_*.bsh</code>: compiling scripts for different executables
+<code>*.exe</code>.</p>
+</li>
+</ul>
+<p>The numerical Lorenz-63 model is in <code>mod_lorenz63_fwd.f90</code> while each
+data method is built independently as a module in the file
+<code>mod_lorenz63_[DA_short_name].f90</code>.</p>
+<h3 id="important-output-files">
+  Important output files
+  <a class="anchor" href="#important-output-files">#</a>
+</h3>
+<p>Each DA subsystem (<code>3dvar.exe, inc4dvar.exe, enda.exe</code>) will output its
+experiment results in several files:</p>
+<ul>
+<li>
+<p><code>fort.10020</code>: truth of $x, y, z$ for each DA cycle (Each line
+represents results from one cycle).</p>
+</li>
+<li>
+<p><code>fort.10030</code>: background of $x, y, z$ for each DA cycle.</p>
+</li>
+<li>
+<p><code>fort.10040</code>: analysis of $x, y, z$ for each DA cycle.</p>
+</li>
+<li>
+<p><code>fort.10010</code>: observation of $x, y, z$ for each DA cycle.</p>
+</li>
+</ul>
+<p>Since all executables will generate their outputs with the same name,
+you might want to rename those files immediately after finishing each
+experiment. You can use the script <code>rename_output.bsh</code> for easy
+renaming. Its usage is introduced in the next section.</p>
+<h3 id="useful-utilities">
+  Useful Utilities
+  <a class="anchor" href="#useful-utilities">#</a>
+</h3>
+<ul>
+<li>
+<p><code>rename_output.bsh</code>: script for renaming experiment output.</p>
+<p>After running each DA methods (those executables ended with <code>.exe</code>),
+you may want to rename the output for easier post-processing. In
+this case, you can utilize the script <code>rename_output.bsh</code>. The
+command is:</p>
+<p><code>bash rename_output.bsh [filename]</code></p>
+<p>For example, you may want to run the command:</p>
+<p><code>bash rename_output.bsh letkf_m3</code></p>
+<p>after you get the results from 3-member LETKF. Now all your
+experiment results are in the files <code>letkf_m3.100*0</code>.</p>
+</li>
+<li>
+<p><code>rmse_single_method.m</code>: MATLAB script for a quick check of the time
+series of the truth, background, analysis trajectory, and analysis
+errors.</p>
+</li>
+</ul>
+<h2 id="description-of-this-project">
+  Description of this project
+  <a class="anchor" href="#description-of-this-project">#</a>
+</h2>
+<p>This project has three goals. Using Lorenz-63 model as an example, we
+will explore:</p>
+<ul>
+<li>
+<p>why we need to do DA for NWP applications (Part B)</p>
+</li>
+<li>
+<p>how variational methods work (Part B)</p>
+</li>
+<li>
+<p>how ensemble Kalman filters work (Part C)</p>
+</li>
+<li>
+<p>how hybrid methods work (Part D)</p>
+</li>
+</ul>
+<h1 id="part-a-warm-up">
+  Part A: Warm-up
+  <a class="anchor" href="#part-a-warm-up">#</a>
+</h1>
+<p>In this part, we will try to install L63-DAS on $deepthought2$, and then
+run the Lorenz-63 forward model and generate a trajectory similar to the
+one in Figure 1.</p>
+<h2 id="tasks">
+  Tasks
+  <a class="anchor" href="#tasks">#</a>
+</h2>
+<ol>
+<li>
+<p>Follow the instructions in Section 1.3 and install L63-DAS under
+your directory.</p>
+</li>
+<li>
+<p>Now run the Lorenz-63 forward model to generate a random
+trajectory.<br>
+(run the command<code>./fwd.exe</code>. It then generates outputs into the file
+<code>fort.10020</code>)</p>
+</li>
+<li>
+<p>Rename the output as <code>fwd.10020</code> with the script
+<code>rename_output.bsh</code>.<br>
+(run the command <code>bash rename_output.bsh fwd</code>)</p>
+</li>
+<li>
+<p>Read the file <code>fwd.10020</code> and plot the trajectory. Are you able to
+get something similar to Figure 1?</p>
+</li>
+</ol>
+<h1 id="part-b-variational-method">
+  Part B: Variational method
+  <a class="anchor" href="#part-b-variational-method">#</a>
+</h1>
+<p>From this part, we will start to conduct assimilation experiments: We
+will run OSSEs for different assimilation methods with the L63-DAS.
+Let’s first explore variational methods.</p>
+<h2 id="related-codes">
+  Related codes
+  <a class="anchor" href="#related-codes">#</a>
+</h2>
+<p>You will need to use <code>3dvar.exe</code> and <code>inc4dvar.exe</code> in Part B. These two
+executables receive no interactive inputs, which means you need to
+modify the source code if you want to change parameters. After you made
+modification to the source code, <strong>remember to re-compile the code to
+generate new executable for your modifications to take into effect</strong>.
+You can compile the source codes through utility scripts named
+<code>compile_*</code>.bsh. For these two executables, their main programs, major
+modules, and stand-alone compiling utilities are:</p>
+<ul>
+<li>
+<p><code>3dvar.exe</code> (lean 3D-Var):<br>
+<code>test_3dvar.f90 mod_lorenz63_3dvar.f90 compile_3dvar.bsh</code></p>
+</li>
+<li>
+<p><code>inc4dvar.exe</code> (incremental 4D-Var with multi-outerloops):<br>
+<code>test_inc4dvar.f90 mod_lorenz63_inc4dvar.f90 compile_inc4dvar.bsh</code></p>
+</li>
+</ul>
+<p>For all the methods in this part, they use a static background error
+covariance $\mathbf{B}$. This matrix is stored in the file <code>fort.1040</code>.</p>
+<p>You can also use the plotting script <code>rmse_single_method.m</code> to have a
+quick check of the time series of the true/background/analysis
+trajectory and analysis errors.</p>
+<h2 id="tasks-1">
+  Tasks
+  <a class="anchor" href="#tasks-1">#</a>
+</h2>
+<ol>
+<li>
+<p>(Necessity of DA) Like the real weather, the Lorenz-63 system is a
+chaotic system, which means even small discrepancy at the initial
+time will lead to completely different trajectories at the later
+time. We will first explore why we need DA. Now let’s see what will
+happen if we stop doing assimilation (Though we are using 3D-Var as
+an example, it applies to all DA methods):</p>
+<ol>
+<li>
+<p>Perform OSSE with 3D-Var for every cycle and then overlay the
+truth and analysis trajectory with different colors in a
+separate panel for each variable $x, y, z$. Finally, plot the
+total analysis RMSE for each cycle in another panel. From this
+figure, can the analysis trajectory always be near the truth?<br>
+(<em>hints</em>: Without modifying anything in <code>test_3dvar.f90</code>, run
+<code>3dvar.exe</code> and its outputs are in the files <code>fort.100*0</code>.
+Rename them with <code>rename_output.bsh</code>. Then plot the truth and
+analysis trajectories. You can use <code>rmse_single_method.m</code> for a
+quick look.)</p>
+</li>
+<li>
+<p>Now let’s stop doing DA after cycle <code>3000</code>. Plot the same figure
+required in (a). Then (1) What do you observe after cycle
+<code>3000</code>? (2) How does the RMSE grow after the cycle <code>3000</code>? (3)
+Will the RMSE grow to infinity, or its maximum value is
+bounded?<br>
+(<em>hints:</em> Modify the condition statement above the line
+“<code>Call lorenz_3dvar(...)</code>” in the source code <code>test_3dvar.f90</code>.
+After modification, recompile <code>3dvar.exe</code> with the command
+<code>bash compile_3dvar.sh</code>. Then run <code>3dvar.exe</code>)</p>
+</li>
+<li>
+<p>Following (b), if we resume DA after cycle <code>3500</code>, what will
+happen?</p>
+</li>
+</ol>
+<p>What you observed in this experiment is a universal phenomenon for
+chaotic systems. It illustrates why we need to do DA continuously.</p>
+</li>
+<li>
+<p>(3D-Var versus 4D-Var) It’s a tremendous advance from 3D-Var to
+4D-Var since 4D-Var accounts for the ``error of the day&quot;. In
+4D-Var, we assimilate observations from several time slots in each
+DA cycle, tracing back their impact through the adjoint to the
+initial background. We will compare the performance of these two
+methods:</p>
+<ol>
+<li>
+<p>Generate 3D-Var analysis and plot the time series of analysis
+RMSE. Calculate the average RMSE for cycle <code>3000-4000</code>.</p>
+</li>
+<li>
+<p>Genearte 4D-Var analysis, and then overlay its analysis RMSE
+over 3D-Var results. Calculate the average RMSE for cycle
+<code>3000-4000</code>.<br>
+(Make sure in <code>test_inc4dvar.f90</code>:<br>
+<code>kitermax_out=3</code>,<br>
+<code>nsteps_per_da=2</code>,<br>
+<code>nsteps_da_window=2</code><br>
+then recompile <code>inc4dvar.exe</code> with
+``<code>bash compile_inc4dvar.sh</code>&quot;, and run <code>inc4dvar.exe</code>)</p>
+</li>
+</ol>
+<p>What did you find from this experiment?<br>
+(<em>Tips</em>: The time series of the analysis RMSE will be very noisy.
+You can further perform a moving average to your raw time series of
+RMSE. Specifically, for the RMSE $\sigma_i$ at cycle $\mathit{i}$,
+we can generate a smoothed one by</p>
+<p>$$\sigma_{i}^{smooth} = \frac{1}{2N+1} \sum_{-N}^{N} \sigma_{i+k}$$</p>
+<p>where $N$ is the half window size. You can select, for example,
+$N=20$, and you will see the new RMSE series is smoother than the
+original series.</p>
+</li>
+<li>
+<p>(4D-Var: impact of the assimilation window length): What if we
+increase the assimilation window length? How does it influence the
+analysis? Let’s find it out:<br>
+Let’s fix the outerloop as 3 (set <code>kitermax_out=3</code> in
+<code>test_inc4dvar.f90</code>). Then vary the window length from 2 to 4 (i.e.,
+<code>nsteps_per_da=2,nsteps_da_window=2</code> for window length of 2) and
+generate 4D-Var analysis for each scenario. Overlay their smoothed
+analysis RMSE series in one figure, and calculate average analysis
+RMSE for cycle <code>3000-4000</code>.</p>
+<p>What can you conclude from the results? Remember to recompile
+<code>inc4dvar.exe</code> for each experiment.<br>
+(<em>Tips</em>:<br>
+You can wrap all command together to get the result for each
+experiment. For example, assume you are now running the experiments
+with the window length of <code>3</code>. After you set
+<code>nsteps_per_da=3,nsteps_da_window=3</code>. you can run the command below
+in one line:</p>
+<p><code>bash compile_inc4dvar.bsh; ./inc4dvar.exe; bash rename_output.bsh 4dvar_out3_obs3</code></p>
+<p>Then your 4D-Var results for this case will be saved into files
+<code>4dvar_out3_obs3.100*0</code>. )</p>
+</li>
+<li>
+<p>(4D-Var: impact of the outer loop) In all previous 4D-Var
+experiments, we use three outerloops (<code>kitermax_out=3</code>). But how
+does the outerloop influence the results? First let’s set a long
+assimilation window length of <code>6</code> (set
+<code>nsteps_per_da=6,nsteps_da_window=6</code>). Change the number of
+outerloop (<code>kitermax_out</code>) from <code>1</code> to <code>3</code> and generate 4D-Var
+analysis for each case.</p>
+<ol>
+<li>
+<p>Overlay their smoothed analysis RMSE series in one figure and
+calculate average analysis RMSE for cycle <code>3000-4000</code>.</p>
+</li>
+<li>
+<p>For outerloop equals 1, overlay the truth and analysis
+trajectory for $x, y, z$.</p>
+</li>
+<li>
+<p>repeat (b) for outerloop is 2 and 3.</p>
+</li>
+</ol>
+<p>What did you find? Can you try to explain why this happens?<br>
+(<em>hints</em>: Think about the approximation used in the formulation of
+incremental 4D-Var, and whether they are still valid for long
+assimilation window length).</p>
+</li>
+</ol>
+<h1 id="part-c-ensemble-method">
+  Part C: Ensemble method
+  <a class="anchor" href="#part-c-ensemble-method">#</a>
+</h1>
+<p>We will now focus on the ensemble methods, which also takes the “error
+of the day” into account while whose developments are much more simple
+than 4D-Var. In addition to the technical simplicity, ensemble methods
+also provide us the explicit uncertainty estimates of our analysis as
+byproducts, which are not available in 4D-Var.</p>
+<h2 id="related-codes-1">
+  Related codes
+  <a class="anchor" href="#related-codes-1">#</a>
+</h2>
+<p>For the experiments in Part C, you only need to use <code>enda.exe</code>, which
+works with you interactively. After typing <code>./enda.exe</code> in the command
+line, the program will:</p>
+<ol>
+<li>
+<p>ask you to input the observation error, which should be a float
+number. For all the experiments in this project, input the same
+value <code>1.414d0</code> (where <code>d0</code> indicates this is a double-precision
+float number).</p>
+</li>
+<li>
+<p>Then the program will ask you to input the ensemble size. You will
+need to input an integer from the keyboard (for example, <code>3</code>).</p>
+</li>
+<li>
+<p>Then the program will ask you to input the inflation parameter,
+which should be a real number between <code>0.d0</code> and <code>1.d0</code>.</p>
+</li>
+<li>
+<p>Finally, the program will print out a list of all ensemble methods
+available, and ask you to select one. In the experiments in Part B,
+you will input <code>1</code> for LETKF, <code>2</code> for perturbed observation EnKF.</p>
+</li>
+</ol>
+<p>After these four inputs, the program will run OSSE, and the results are
+written into files, as indicated in Section 1.3.3.</p>
+<h2 id="tasks-2">
+  Tasks
+  <a class="anchor" href="#tasks-2">#</a>
+</h2>
+<p>For all the following experiments, the observation errors are all set
+with a value of <code>1.414d0</code>.</p>
+<ol>
+<li>
+<p>(Compare 3D-Var, 4D-Var and LETKF)</p>
+<ol>
+<li>
+<p>Use 10-member LETKF (filter <code>1</code> in <code>enda.exe</code>) with no inflation
+(value <code>0.d0</code> for inflation parameter). Then in the figure
+overlay its analysis RMSE with 3D-Var and 4D-Var. Compare their
+analysis RMSE for cycle <code>3000-4000</code><br>
+How is its performance compared with the variational methods?<br>
+Note that since we have ensemble members now, we can
+<strong>explicitly calculate the covariance between any pair of model
+states (e.g., $x$ and $y$) for any time step</strong>. By contrast,
+though the background error covariance in 4D-Var will evolve
+with time, we cannot write out the varying covariance that
+contains the ``error of the day&quot; at later time steps.</p>
+</li>
+<li>
+<p>Now use 3-member LETKF (filter <code>1</code> in <code>enda.exe</code>) with no
+inflation (value <code>0.d0</code> for inflation parameter). Then plot the
+same figure in (a). How is its performance compared with the
+variational methods now? If comparing its analysis trajectory
+with truth, what did you find?</p>
+</li>
+</ol>
+</li>
+<li>
+<p>(Remedy to small ensemble size) In 1(b), we see the ensemble Kalman
+filter encounters problems when the ensemble size is small compared
+to the dimension of the model state (i.e., 3). In real applications,
+the dimension of model state (i.e., model state of the GFS) is far
+greater than the ensemble size we use ($N_{ensemble}\sim$ hundreds).
+How do we fix this problem?</p>
+<p>The ensemble DA community developed several simple but effective
+tools to deal with this problem. Among them, one is called the
+Relaxation to Prior Perturbation (RTPP, Zhang et al., 2004). The
+scheme itself is extremely simple, after we get the <em>m</em>-member
+analysis perturbations
+$\Delta\mathbf{X}^a=[\delta\mathbf{x}^{a,1}|\delta\mathbf{x}^{a,2}|&hellip;|\delta\mathbf{x}^{a,m}]$.
+We create the final analysis perturbation by merging this analysis
+perturbation and background perturbation, which are
+$$\Delta\mathbf{X}_{final}^a = \alpha \Delta\mathbf{X}^b + (1-\alpha) \Delta\mathbf{X}^a$$
+Then we get the final analysis members by adding these final
+analysis perturbations back to the ensemble analysis mean.</p>
+<p>Now let’s see if this simple method works. We still use 3-member
+LETKF, but this time with an inflation parameter of <code>0.5d0</code>. Check
+the truth and analysis trajectory, does the LETKF work correctly
+now?</p>
+</li>
+<li>
+<p>(Partial observation coverage) In DA, the background error
+covariance plays an important role in sharing information between
+different variables. Even some variables are not directly observed,
+through the background error covariance, they can still be updated
+through observations for other variables. We will explore how LETKF
+works with partial observation coverage:</p>
+<ol>
+<li>
+<p>Start with 5-member LETKF with no inflation, remove observation
+for variable $z$, and run the experiment. Plot the truth and
+analysis trajectory for each variable. (In <code>test_enda.f90</code>,
+change the last <code>.true.</code> to <code>.false.</code> in the call
+``<code>Call lorenz63_letkf(...)</code>&quot;. After modification, recompile
+<code>enda.exe</code> and then <code>./enda.exe</code>)</p>
+<p>Is the LETKF able to work correctly? How is its average analysis
+RMSE compared with full observation coverage for cycle
+<code>3000-4000</code>?</p>
+</li>
+<li>
+<p>Still start with 5-member LETKF with no inflation, but this time
+remove observation for variable $y$ and rerun the LETKF
+experiments.</p>
+<p>Can the LETKF work correctly now? If not, can you think of a way
+to make it work without adding new observations?</p>
+</li>
+</ol>
+</li>
+<li>
+<p>(stochastic EnKF vs. deterministic EnKF) There are two types of
+ensemble Kalman filters. The perturbed observation EnKF belongs to
+the stochastic EnKF, while LETKF is formulated in a deterministic
+manner. Their different formulations lead to their different
+performances.</p>
+<p>In this experiment, we will use no inflation. For both deterministic
+filter (<code>1</code> for LETKF, ) and stochastic filter (<code>2</code> for perturbed
+observation EnKF):</p>
+<ol>
+<li>
+<p>calculate their average RMSE for cycle <code>3000-4000</code> for three
+ensemble sizes (3, 10, 15).</p>
+</li>
+<li>
+<p>plot the analysis trajectory over the truth trajectory for these
+two filters for the ensemble size 10.</p>
+</li>
+</ol>
+<p>From the results of 4(a) and 4(b), what did you find?</p>
+</li>
+</ol>
+<h1 id="part-d-hybrid-method">
+  Part D: Hybrid method
+  <a class="anchor" href="#part-d-hybrid-method">#</a>
+</h1>
+<p>Penny [2014] developed a hyrbid method (hybrid-gain) that combines both
+the variational method and ensemble method. Unlike hybrid-covariance
+method, hybrid-gain method requires minimal code modifications if users
+already have a variational and ensemble system. In the hybrid-gain
+method that combines 3D-Var and LETKF, we try to seek the final analysis
+${\mathbf{x}}_{HG}^a$ as
+<span>
+  \[    \begin{split}
+        min\; J(\mathbf{x}_{3DVar}^a) = &amp; (\mathbf{x}_{3DVar}^a-\Bar{\mathbf{x}}_{LETKF}^a)^T \mathbf{B}_{3DVar}^{-1}(\mathbf{x}_{3DVar}^a-\Bar{\mathbf{x}}_{LETKF}^a) &#43; \\
+                                  &amp; (\mathbf{y}^o-\mathcal{H}(\mathbf{x}_{3DVar}^a))^T \mathbf{R}^{-1}(\mathbf{y}^o-\mathcal{H}(\mathbf{x}_{3DVar}^a)) 
+    \end{split}\]
+</span>
+</p>
+<p>$${\mathbf{x}}<em>{HG}^a = \alpha \Bar{\mathbf{x}}</em>{LETKF}^a  + (1-\alpha)\mathbf{x}_{3DVar}^a$$</p>
+<p>The equations above can be summarized as the following procedure for
+each DA cycle:</p>
+<ol>
+<li>
+<p>Assume we already got the <em>m</em>-member ensemble background
+$ \mathbf{X}^b=[\mathbf{x}^{b,1}|\mathbf{x}^{b,2}|&hellip;|\mathbf{x}^{b,m}]$,
+where each column of $\mathbf{X}^b$ represent one member.</p>
+</li>
+<li>
+<p>Use LETKF to get the LETKF analysis mean
+$\Bar{\mathbf{x}}<em>{LETKF}^a$ and analysis perturbations
+$$\Delta\mathbf{X}</em>{LETKF}^a=[\delta\mathbf{x}<em>{LETKF}^{a,1}|\delta\mathbf{x}</em>{LETKF}^{a,2}|&hellip;|\delta\mathbf{x}<em>{LETKF}^{a,m}]$$
+where
+$\delta\mathbf{x}</em>{LETKF}^{a,k}=\mathbf{x}<em>{LETKF}^{a,k}-\Bar{\mathbf{x}}</em>{LETKF}^a$,
+k=1,2,&hellip;,m.</p>
+</li>
+<li>
+<p>Set $\Bar{\mathbf{x}}<em>{LETKF}^a$ as the background for the 3D-Var:
+$\mathbf{x}</em>{3DVar}^b=\Bar{\mathbf{x}}<em>{LETKF}^a$, and 3D-Var will
+then generate its analysis $\mathbf{x}</em>{3DVar}^a$.</p>
+</li>
+<li>
+<p>Generate the hybrid-gain analysis
+${\mathbf{x}}<em>{HG}^a = \alpha \Bar{\mathbf{x}}</em>{LETKF}^a  + (1-\alpha)\mathbf{x}_{3DVar}^a$.</p>
+</li>
+<li>
+<p>Generate the final <em>m</em>-member ensemble HG analysis members
+$ \mathbf{X}<em>{HG}^a=[\mathbf{x}</em>{HG}^{a,1}|\mathbf{x}<em>{HG}^{a,2}|&hellip;|\mathbf{x}</em>{HG}^{a,m}]$,
+where
+$\mathbf{x}<em>{HG}^{a,k}=\mathbf{x}</em>{HG}^a+\delta\mathbf{x}_{LETKF}^{a,k}, k=1,2,&hellip;,m$</p>
+</li>
+<li>
+<p>Evolve each HG analysis member through NWP model to get the
+background at the next DA step.</p>
+</li>
+</ol>
+<h2 id="tasks-3">
+  Tasks
+  <a class="anchor" href="#tasks-3">#</a>
+</h2>
+<p>In this part, we will build a hybrid-gain system based on the existing
+3D-Var system (<code>test_3dvar.f90</code>) and LETKF (<code>test_enda.f90</code>) and
+performing two experiments:</p>
+<ol>
+<li>
+<p>Build a hybrid-gain system that combines 3D-Var and LETKF.</p>
+</li>
+<li>
+<p>Now let’s play with the hybrid-gain method:</p>
+<ol>
+<li>
+<p>(Hybrid-gain vs. EnKF) With full observation coverage, use only
+2 or 3 members and no inflation, respectively run LETKF and your
+hybrid-gain system. For each method, overlay their analysis
+trajectory over the truth trajectory. For the hybrid-gain
+method, use $\alpha=0.5$.</p>
+</li>
+<li>
+<p>(Hybrid-gain vs. 3D-Var) following (2), now compare your
+smoothed Hybrid-gain analysis RMSE with 3D-Var RMSE in the same
+figure. Compare their average RMSE for cycle <code>3000-4000</code>.</p>
+</li>
+</ol>
+<p>What did you find from 2(a) and 2(b)?</p>
+</li>
+</ol>
+<h2 id="coding-tips">
+  Coding tips
+  <a class="anchor" href="#coding-tips">#</a>
+</h2>
+<ol>
+<li>
+<p>To implement hybrid-gain, you can make a copy of <code>test_enda.f90</code> and
+name it as <code>test_hg.f90</code> and then try to insert 3D-Var subroutine
+<code>lorenz63_3dvar</code> into <code>test_hg.f90</code>.</p>
+</li>
+<li>
+<p>3D-Var subroutine <code>lorenz63_3dvar</code> is in the code
+<code>mod_lorenz63_3dvar.f90</code>. LETKF subroutine <code>lorenz63_letkf</code> is in
+the code <code>mod_lorenz63_letkf.f90</code>.</p>
+</li>
+<li>
+<p>After finishing writing the main program <code>test_hg.f90</code>, you will
+need to compile your code with the script <code>compile_hg.bsh</code>. If your
+code has no coding error, you will see an executable named <code>hg.exe</code>
+under the directory. And you will use this executable to run the
+hybrid-gain method. Remember to select filter <code>1</code> for the LETKF code
+section when running <code>hg.exe</code>.</p>
+</li>
+</ol>
+<h1 id="optional-part-e-information-transport-in-a-da-system">
+  (Optional) Part E: Information transport in a DA system
+  <a class="anchor" href="#optional-part-e-information-transport-in-a-da-system">#</a>
+</h1>
+<p>In this part, we try to figure out how observations adjust background
+model state through different components (i.e.,
+$\mathbf{B}, \mathbf{H}, \mathbf{L}$) in a DA system. Knowing how each
+component modifies the background in a DA system enables us to trace
+back the components that failed to work realistically when we get an
+inferior analysis. For example, in carbon data assimilation, the
+variable localization method [Kang et al., 2011] significantly improve
+carbon flux estimation by removing unrealistic ensemble inter-variable
+covariance due to small ensemble size. As the first step, we will try to
+understand how those DA components transport information in different
+scenarios.</p>
+<h2 id="tasks-4">
+  Tasks
+  <a class="anchor" href="#tasks-4">#</a>
+</h2>
+<p>As shown in the Introduction, Lorenz-63 system includes three model
+variables (i.e., x, y, z), so their background error covariance matrix
+$\mathbf{B}$ is a $3 \times 3$ matrix. For the following scenarios,
+please tell if the background will be updated due to the assimilation of
+observations. <strong>Specifically, you need to determine: (1) if
+$x^a \neq x^b$, (2) if $y^a \neq y^b$, and (3) if $z^a \neq z^b$. Please
+also briefly explain your answer.</strong> For all the scenarios, please assume
+that the background value never equals observation value(i.e.,
+$x^b \neq x^o, y^b \neq y^o, z^b \neq z^o$), and the observation errors
+(i.e., $\mathbf{R}$) are nonzero.</p>
+<p>(<em>hints</em>: Each scenario includes at least one special DA component so
+that you can make quick judgements without calculation. If you cannot
+intuitively answer them, you can refer to KF/OI/3D-Var equations.)</p>
+<ul>
+<li>
+<p>(Scenario 1) Assuming you are using a OI/3D-Var system for the
+Lorenz-63 equations for one DA cycle. For this cycle, you have
+direct observations $x^o, y^o, z^o$, and your $\mathbf{B}$ has the
+structure $\begin{bmatrix}
+e_{xx} &amp; e_{xy} &amp; e_{xz}\<br>
+e_{xy} &amp; e_{yy} &amp; e_{yz} \<br>
+e_{xz} &amp; e_{yz} &amp; e_{zz}
+\end{bmatrix}$ where elements started with $e$ are nonzero.</p>
+</li>
+<li>
+<p>(Scenario 2) Assuming you are using a OI/3D-Var system for the
+Lorenz-63 equations for one DA cycle. For this cycle, you only have
+direct observations $x^o$, and your $\mathbf{B}$ has the structure
+$\begin{bmatrix}
+e_{xx} &amp; e_{xy} &amp; e_{xz}\<br>
+e_{xy} &amp; e_{yy} &amp; e_{yz} \<br>
+e_{xz} &amp; e_{yz} &amp; e_{zz}
+\end{bmatrix}$ where elements started with $e$ are nonzero.</p>
+</li>
+<li>
+<p>(Scenario 3) Assuming you are using a OI/3D-Var system for the
+Lorenz-63 equations for one DA cycle. For this cycle, you only have
+direct observations $x^o$, and your $\mathbf{B}$ has the structure
+$\begin{bmatrix}
+e_{xx} &amp; e_{xy} &amp; 0 \<br>
+e_{xy} &amp; e_{yy} &amp; e_{yz} \<br>
+0 &amp; e_{yz} &amp; e_{zz}
+\end{bmatrix}$ where elements started with $e$ are nonzero.</p>
+</li>
+<li>
+<p>(Scenario 4) Assuming you are using a OI/3D-Var system for the
+Lorenz-63 equations for one DA cycle. For this cycle, you only have
+direct observations $x^o$, and your $\mathbf{B}$ has the structure
+$\begin{bmatrix}
+e_{xx} &amp; 0 &amp; 0 \<br>
+0 &amp; e_{yy} &amp; 0\<br>
+0 &amp; 0 &amp; e_{zz}
+\end{bmatrix}$ where elements started with $e$ are nonzero.</p>
+</li>
+<li>
+<p>(Scenario 5) Assuming you are using a OI/3D-Var system for the
+Lorenz-63 equations for one DA cycle. For this cycle, your
+$\mathbf{B}$ has the structure $\begin{bmatrix}
+e_{xx} &amp; 0 &amp; 0 \<br>
+0 &amp; e_{yy} &amp; 0\<br>
+0 &amp; 0 &amp; e_{zz}
+\end{bmatrix}$ where elements started with $e$ are nonzero.
+However, in this case, you don’t have any direct observations.
+Instead, you have one observation $q^o=h(x,y)=x^t+y^t+\epsilon$,
+where $x^t, y^t$ are true value of model state $x, y$, and
+$\epsilon$ a Gaussian noise.</p>
+</li>
+<li>
+<p>(Scenario 6) Assuming you are now using a 4D-Var system for the
+Lorenz-63 equations for one DA cycle. For this cycle, your
+$\mathbf{B_0}$ has the structure <span>
+  \( \begin{bmatrix}
+        e_{xx} &amp; 0 &amp; 0 \\
+        0 &amp; e_{yy} &amp; 0\\
+        0 &amp; 0 &amp; e_{zz}
+        \end{bmatrix} \)
+</span>
+ where elements started with $e$ are nonzero.
+Still, you only have direct observations for model state $x$. But
+since you are using 4D-Var, the assimilation window length is set as
+6, which means now you actually have $x$ observations from 6 time
+slots (i.e.,$x_{1}^o,x_{2}^o,x_{3}^o,x_{4}^o,x_{5}^o,x_{6}^o$).</p>
+</li>
+</ul>
+</article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+
+
+
+</div>
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+  </main>
+
+  
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
