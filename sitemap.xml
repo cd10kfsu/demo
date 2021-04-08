@@ -2,39 +2,39 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>http://cd10kfsu.github.io/docs/homework/</loc>
+    <loc>http://cd10kfsu.github.io/demo/docs/homework/</loc>
   </url><url>
-    <loc>http://cd10kfsu.github.io/docs/appendix/</loc>
+    <loc>http://cd10kfsu.github.io/demo/docs/appendix/</loc>
   </url><url>
-    <loc>http://cd10kfsu.github.io/docs/project/lorenz63/</loc>
+    <loc>http://cd10kfsu.github.io/demo/docs/project/lorenz63/</loc>
   </url><url>
-    <loc>http://cd10kfsu.github.io/docs/</loc>
+    <loc>http://cd10kfsu.github.io/demo/docs/</loc>
   </url><url>
-    <loc>http://cd10kfsu.github.io/docs/project/</loc>
+    <loc>http://cd10kfsu.github.io/demo/docs/project/</loc>
   </url><url>
-    <loc>http://cd10kfsu.github.io/docs/supplemental/</loc>
+    <loc>http://cd10kfsu.github.io/demo/docs/supplemental/</loc>
   </url><url>
-    <loc>http://cd10kfsu.github.io/docs/welcome/</loc>
+    <loc>http://cd10kfsu.github.io/demo/docs/welcome/</loc>
   </url><url>
-    <loc>http://cd10kfsu.github.io/</loc>
+    <loc>http://cd10kfsu.github.io/demo/</loc>
     <priority>0</priority>
   </url><url>
-    <loc>http://cd10kfsu.github.io/docs/appendix/appendixA/</loc>
+    <loc>http://cd10kfsu.github.io/demo/docs/appendix/appendixA/</loc>
   </url><url>
-    <loc>http://cd10kfsu.github.io/docs/homework/homework5/</loc>
+    <loc>http://cd10kfsu.github.io/demo/docs/homework/homework5/</loc>
   </url><url>
-    <loc>http://cd10kfsu.github.io/docs/project/lorenz96/</loc>
+    <loc>http://cd10kfsu.github.io/demo/docs/project/lorenz96/</loc>
   </url><url>
-    <loc>http://cd10kfsu.github.io/docs/project/SPEEDY/</loc>
+    <loc>http://cd10kfsu.github.io/demo/docs/project/SPEEDY/</loc>
   </url><url>
-    <loc>http://cd10kfsu.github.io/docs/supplemental/dfi/</loc>
+    <loc>http://cd10kfsu.github.io/demo/docs/supplemental/dfi/</loc>
   </url><url>
-    <loc>http://cd10kfsu.github.io/docs/supplemental/nmi/</loc>
+    <loc>http://cd10kfsu.github.io/demo/docs/supplemental/nmi/</loc>
   </url><url>
-    <loc>http://cd10kfsu.github.io/docs/supplemental/varQC/</loc>
+    <loc>http://cd10kfsu.github.io/demo/docs/supplemental/varQC/</loc>
   </url><url>
-    <loc>http://cd10kfsu.github.io/categories/</loc>
+    <loc>http://cd10kfsu.github.io/demo/categories/</loc>
   </url><url>
-    <loc>http://cd10kfsu.github.io/tags/</loc>
+    <loc>http://cd10kfsu.github.io/demo/tags/</loc>
   </url>
 </urlset>

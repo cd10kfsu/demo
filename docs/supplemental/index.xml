@@ -2,34 +2,34 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>supplemental on aosc614</title>
-    <link>http://cd10kfsu.github.io/docs/supplemental/</link>
+    <link>http://cd10kfsu.github.io/demo/docs/supplemental/</link>
     <description>Recent content in supplemental on aosc614</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language><atom:link href="http://cd10kfsu.github.io/docs/supplemental/index.xml" rel="self" type="application/rss+xml" />
+    <language>en-us</language><atom:link href="http://cd10kfsu.github.io/demo/docs/supplemental/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title></title>
-      <link>http://cd10kfsu.github.io/docs/supplemental/dfi/</link>
+      <link>http://cd10kfsu.github.io/demo/docs/supplemental/dfi/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>http://cd10kfsu.github.io/docs/supplemental/dfi/</guid>
+      <guid>http://cd10kfsu.github.io/demo/docs/supplemental/dfi/</guid>
       <description></description>
     </item>
     
     <item>
       <title></title>
-      <link>http://cd10kfsu.github.io/docs/supplemental/nmi/</link>
+      <link>http://cd10kfsu.github.io/demo/docs/supplemental/nmi/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>http://cd10kfsu.github.io/docs/supplemental/nmi/</guid>
+      <guid>http://cd10kfsu.github.io/demo/docs/supplemental/nmi/</guid>
       <description>Normal Mode Initialization #  </description>
     </item>
     
     <item>
       <title></title>
-      <link>http://cd10kfsu.github.io/docs/supplemental/varQC/</link>
+      <link>http://cd10kfsu.github.io/demo/docs/supplemental/varQC/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>http://cd10kfsu.github.io/docs/supplemental/varQC/</guid>
+      <guid>http://cd10kfsu.github.io/demo/docs/supplemental/varQC/</guid>
       <description></description>
     </item>
     

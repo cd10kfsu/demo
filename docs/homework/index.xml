@@ -2,16 +2,16 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>aosc614</title>
-    <link>http://cd10kfsu.github.io/docs/homework/</link>
+    <link>http://cd10kfsu.github.io/demo/docs/homework/</link>
     <description>Recent content on aosc614</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language><atom:link href="http://cd10kfsu.github.io/docs/homework/index.xml" rel="self" type="application/rss+xml" />
+    <language>en-us</language><atom:link href="http://cd10kfsu.github.io/demo/docs/homework/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title></title>
-      <link>http://cd10kfsu.github.io/docs/homework/homework5/</link>
+      <link>http://cd10kfsu.github.io/demo/docs/homework/homework5/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>http://cd10kfsu.github.io/docs/homework/homework5/</guid>
+      <guid>http://cd10kfsu.github.io/demo/docs/homework/homework5/</guid>
       <description>homework 5 #  </description>
     </item>
     

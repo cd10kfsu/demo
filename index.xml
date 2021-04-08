@@ -2,81 +2,81 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>aosc614</title>
-    <link>http://cd10kfsu.github.io/</link>
+    <link>http://cd10kfsu.github.io/demo/</link>
     <description>Recent content on aosc614</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language><atom:link href="http://cd10kfsu.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <language>en-us</language><atom:link href="http://cd10kfsu.github.io/demo/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Lorenz63</title>
-      <link>http://cd10kfsu.github.io/docs/project/lorenz63/</link>
+      <link>http://cd10kfsu.github.io/demo/docs/project/lorenz63/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>http://cd10kfsu.github.io/docs/project/lorenz63/</guid>
+      <guid>http://cd10kfsu.github.io/demo/docs/project/lorenz63/</guid>
       <description>Data Assimilation Experiments with the Lorenz-63 model #   Download the pdf
 Introduction #  In Chapter 5, we explored different data assimilation (DA) methods theoretically. This project is intended to give you hands-on experience about their code implementation and get you familiar with different DA methods’ behaviors. We use the famous 3-variable Lorenz-63 model as our toy numerical weather model for its simplicity and its similar chaotic behaviors as the real NWP models.</description>
     </item>
     
     <item>
       <title></title>
-      <link>http://cd10kfsu.github.io/docs/appendix/appendixA/</link>
+      <link>http://cd10kfsu.github.io/demo/docs/appendix/appendixA/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>http://cd10kfsu.github.io/docs/appendix/appendixA/</guid>
+      <guid>http://cd10kfsu.github.io/demo/docs/appendix/appendixA/</guid>
       <description>Appendix A: The early history of NWP #  Notes written from memory by AndersPersson (ECMWF) on 16 September 1999. The reader is encouraged to read P. D. Thompson’s paper “Charney and the Revival of Numerical Weather Prediction”, reproduced, together with Charney’s letters to Thompson in Lindzen et al., (1990).
 History of NWP #  In late 1945 Vladimir Zworykin, the “Father of Television”, who worked at RCA, joined with John von Neumann, the “Father of the Computer”, to suggest the use of the computer in meteorology.</description>
     </item>
     
     <item>
       <title></title>
-      <link>http://cd10kfsu.github.io/docs/homework/homework5/</link>
+      <link>http://cd10kfsu.github.io/demo/docs/homework/homework5/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>http://cd10kfsu.github.io/docs/homework/homework5/</guid>
+      <guid>http://cd10kfsu.github.io/demo/docs/homework/homework5/</guid>
       <description>homework 5 #  </description>
     </item>
     
     <item>
       <title></title>
-      <link>http://cd10kfsu.github.io/docs/project/lorenz96/</link>
+      <link>http://cd10kfsu.github.io/demo/docs/project/lorenz96/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>http://cd10kfsu.github.io/docs/project/lorenz96/</guid>
+      <guid>http://cd10kfsu.github.io/demo/docs/project/lorenz96/</guid>
       <description>Lorenz-96</description>
     </item>
     
     <item>
       <title></title>
-      <link>http://cd10kfsu.github.io/docs/project/SPEEDY/</link>
+      <link>http://cd10kfsu.github.io/demo/docs/project/SPEEDY/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>http://cd10kfsu.github.io/docs/project/SPEEDY/</guid>
+      <guid>http://cd10kfsu.github.io/demo/docs/project/SPEEDY/</guid>
       <description>SPEEDY #  </description>
     </item>
     
     <item>
       <title></title>
-      <link>http://cd10kfsu.github.io/docs/supplemental/dfi/</link>
+      <link>http://cd10kfsu.github.io/demo/docs/supplemental/dfi/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>http://cd10kfsu.github.io/docs/supplemental/dfi/</guid>
+      <guid>http://cd10kfsu.github.io/demo/docs/supplemental/dfi/</guid>
       <description></description>
     </item>
     
     <item>
       <title></title>
-      <link>http://cd10kfsu.github.io/docs/supplemental/nmi/</link>
+      <link>http://cd10kfsu.github.io/demo/docs/supplemental/nmi/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>http://cd10kfsu.github.io/docs/supplemental/nmi/</guid>
+      <guid>http://cd10kfsu.github.io/demo/docs/supplemental/nmi/</guid>
       <description>Normal Mode Initialization #  </description>
     </item>
     
     <item>
       <title></title>
-      <link>http://cd10kfsu.github.io/docs/supplemental/varQC/</link>
+      <link>http://cd10kfsu.github.io/demo/docs/supplemental/varQC/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>http://cd10kfsu.github.io/docs/supplemental/varQC/</guid>
+      <guid>http://cd10kfsu.github.io/demo/docs/supplemental/varQC/</guid>
       <description></description>
     </item>
     

@@ -2,16 +2,16 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Appendix on aosc614</title>
-    <link>http://cd10kfsu.github.io/docs/appendix/</link>
+    <link>http://cd10kfsu.github.io/demo/docs/appendix/</link>
     <description>Recent content in Appendix on aosc614</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language><atom:link href="http://cd10kfsu.github.io/docs/appendix/index.xml" rel="self" type="application/rss+xml" />
+    <language>en-us</language><atom:link href="http://cd10kfsu.github.io/demo/docs/appendix/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title></title>
-      <link>http://cd10kfsu.github.io/docs/appendix/appendixA/</link>
+      <link>http://cd10kfsu.github.io/demo/docs/appendix/appendixA/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>http://cd10kfsu.github.io/docs/appendix/appendixA/</guid>
+      <guid>http://cd10kfsu.github.io/demo/docs/appendix/appendixA/</guid>
       <description>Appendix A: The early history of NWP #  Notes written from memory by AndersPersson (ECMWF) on 16 September 1999. The reader is encouraged to read P. D. Thompson’s paper “Charney and the Revival of Numerical Weather Prediction”, reproduced, together with Charney’s letters to Thompson in Lindzen et al., (1990).
 History of NWP #  In late 1945 Vladimir Zworykin, the “Father of Television”, who worked at RCA, joined with John von Neumann, the “Father of the Computer”, to suggest the use of the computer in meteorology.</description>
     </item>
